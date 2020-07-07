@@ -25,6 +25,7 @@ class RegistrationController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
+            
             $user->eraseCredentials();
  
            // return $this->redirectToRoute('connexion');
