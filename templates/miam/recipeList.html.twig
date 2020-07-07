@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes{% endblock %}
+
+{% block body %}
+ <h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;"> Liste des recettes par {{ cat.name }} </h1>
+    {% for list in lists %}
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~list.image)}} alt="Card image">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body text-center">
+        <h5 class="card-title"> <a href="{{ path('recipeView', { 'id': list.id  } ) }}" class="card-link text-center">{{ list.title }}</a></h5>
+        <p>{{ list.information}}</p>
+        <p> Recette ajoutée le: {{ list.date|date("m/d/Y") }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+{% endblock %}
+
+
+
+

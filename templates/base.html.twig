@@ -1,12 +1,158 @@
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/minty/bootstrap.min.css" integrity="sha384-HqaYdAE26lgFCJsUF9TBdbZf7ygr9yPHtxtg37JshqVQi6CCAo6Qvwmgc5xclIiV" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
+            <a class="navbar-brand" href={{ path('miam') }}><img class="img-fluid" src={{ asset('img/logo.png') }} style="width: 100px; height: 60px;" alt=""> Accueil</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('about') }}>A propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('recipe') }}>Recettes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href={{ path('contact') }}>Contacts</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Espace membre</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Se connecter</a>
+                        <a class="dropdown-item" href="#">S'inscrire</a>
+                    </div>
+                </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="mots clés">
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </nav>
+    <!--body block -->
+        <div class="container-fluid w-75 mt-4">
+            <div class="row align-items-center">
+                <div class="col">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    <!--end body block-->
+
+    <!-- Footer -->
+        <footer class="page-footer font-small">
+
+            <!-- Footer Links -->
+            <div class="container">
+
+                <!-- Grid row-->
+                <div class="row text-center d-flex justify-content-center pt-5 mb-3">
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                        <a href="#" class="text-warning">Mentions Légales</a>
+                        </h6>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!" class="text-warning">Plan du site</a>
+                        </h6>
+                    </div>
+                    <!-- Grid column -->
+
+                    <!-- Grid column -->
+                    <div class="col-md-2 mb-3">
+                        <h6 class="text-uppercase font-weight-bold">
+                        <a href="#!" class="text-warning">Charte graphique</a>
+                        </h6>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row-->
+                <hr class="rgba-white-light" style="margin: 0 15%;">
+
+                <!-- Grid row-->
+                    <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+                        <!-- Grid column -->
+                        <div class="col-md-8 col-12 mt-5">
+                            <p style="line-height: 1.7rem">Ce Miam a été réalisé lors d'un stage dans le cadre d'une formation à l'ADRAR DIGIT@L ACADEMY</p>
+                            <p style="line-height: 1.7rem">Toutes les recettes ont été écrite par Elise Delprat-Alvares, <I>Cuisiner au micro-ondes, 250 recettes pour une cuisine légère et rapide</I>, édition Larousse 2014, ISBN: 978-2-03-590087-6</p>
+                            <p style="line-height: 1.7rem">Les photos des recettes proviennent de la banque d'image de Google image, pas toutes ne sont libre de droits. Leurs choix sont à titre d'exemple</p>
+                        </div>
+                        <!-- Grid column -->
+
+                    </div>
+                <!-- Grid row-->
+                <hr class="clearfix d-md-none rgba-white-light" style="margin: 10% 15% 5%;">
+
+                <!-- Grid row-->
+                <div class="row pb-3">
+
+                <!-- Grid column -->
+                <div class="col-md-12">
+
+                    <div class="mb-3 flex-center">
+                    <!-- Social buttons -->
+                    <ul class="list-unstyled list-inline text-center">
+                        <li class="list-inline-item">
+                        <a class="btn-floating btn-fb mx-1" href="#">
+                            <i class="fa fa-facebook-square fa-3x" aria-hidden="true"></i>
+                        </a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a class="btn-floating btn-tw mx-1" href="#">
+                            <i class="fa fa-twitter-square fa-3x" aria-hidden="true"></i>
+                        </a>
+                        </li>
+                        <li class="list-inline-item">
+                        <a class="btn-floating btn-li mx-1" href="#">
+                            <i class="fa fa-linkedin-square fa-3x" aria-hidden="true"></i>
+                        </a>
+                        </li>
+                    </ul>
+                    <!-- Social buttons -->
+
+                </div>
+                <!-- Grid column -->
+
+                </div>
+                <!-- Grid row-->
+
+            </div>
+            <!-- Footer Links -->
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="#" class="text-warning">Thaïs Valade</a>
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+        <!-- Footer -->
+
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

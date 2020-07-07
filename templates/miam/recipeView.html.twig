@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ cat.name }}{% endblock %}
+
+{% block body %}
+<div class="card mb-3">
+  <h3 class="card-header" style="font-family: 'Grand Hotel', cursive;">{{ cat.name }}</h3>
+  <div class="card-body">
+    <h4 class="card-title text-center">{{ recipe.title}}</h4>
+    <h6 class="card-subtitle text-muted">{{ recipe.information }}</h6>
+    <hr>
+    <p class="card-text">Ingrédients: {{ recipe.ingredient }}</p>
+  </div>
+  <img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
+  <div class="card-body">
+    <p class="card-text">{{ recipe.content }}</p>
+  </div>
+  <div class="card-footer text-muted">
+    <p> Recette ajoutée le: {{ recipe.date|date("m/d/Y") }}</p>
+  </div>
+</div>
+
+
+{% endblock %}
