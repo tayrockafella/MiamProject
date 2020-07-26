@@ -20,38 +20,38 @@ class Favorites
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="favorites")
      */
-    private $user_id;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class)
      */
-    private $recipe_id;
+    private $recipe;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getRecipeId(): ?Recipe
+    public function getRecipe(): ?Recipe
     {
-        return $this->recipe_id;
+        return $this->recipe;
     }
 
-    public function setRecipeId(?Recipe $recipe_id): self
+    public function setRecipe(?Recipe $recipe): self
     {
-        $this->recipe_id = $recipe_id;
+        $this->recipe = $recipe;
 
         return $this;
     }

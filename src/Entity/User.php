@@ -61,7 +61,7 @@ class User implements UserInterface
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=Favorites::class, mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity=Favorites::class, mappedBy="user")
      */
     private $favorites;
 
@@ -200,7 +200,7 @@ class User implements UserInterface
     {
         if (!$this->favorites->contains($favorite)) {
             $this->favorites[] = $favorite;
-            $favorite->setUserId($this);
+            $favorite->setUser($this);
         }
 
         return $this;
@@ -211,8 +211,8 @@ class User implements UserInterface
         if ($this->favorites->contains($favorite)) {
             $this->favorites->removeElement($favorite);
             // set the owning side to null (unless already changed)
-            if ($favorite->getUserId() === $this) {
-                $favorite->setUserId(null);
+            if ($favorite->getUser() === $this) {
+                $favorite->setUser(null);
             }
         }
 

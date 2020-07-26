@@ -57,9 +57,21 @@ class RecipeController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         $cat = $recipe->getCategory();
+        $user = $this->getUser();
+        $isFav = false; 
+        if ($user != null) {
+            $favorites = $user->getFavorites();
+           
+            foreach ($favorites as $fav) {
+                if ($fav->getRecipe()->getId() == $recipe->getId()) {
+                    $isFav = true;
+                }
+            }
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
+
             $comment->setUser($user);
             $comment->setDate(new \DateTime());
             $comment->setRecipes($recipe);
@@ -70,7 +82,8 @@ class RecipeController extends AbstractController
         return $this->render('miam/recipeView.html.twig', [
             'recipe' => $recipe,
             'cat' => $cat,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'isFav' => $isFav,
         ]);
     }
 
@@ -155,8 +168,8 @@ class RecipeController extends AbstractController
             }
         }
         $favorite = new Favorites();
-        $favorite->setUserId($user); // insère id de l'user préalablement récupéré
-        $favorite->setRecipeId($recipe); // insère id de la recette préalablement récupéré
+        $favorite->setUser($user); // insère id de l'user préalablement récupéré
+        $favorite->setRecipe($recipe); // insère id de la recette préalablement récupéré
         $em->persist($favorite);
         $em->flush();
         return $this->json(["fav" => "FALSE"]);

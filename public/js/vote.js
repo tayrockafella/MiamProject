@@ -1,23 +1,36 @@
 $(document).ready(function () {
-  var $vote = $('.js-vote-arrows')
-  $vote.find('a').on('click', function (e) {
+  $('.js-vote-arrows').find('a').on('click', function (e) {
+
+    var me = $(this);
+    e.preventDefault();
+
+    if (me.data('requestRunning')) {
+      return;
+    }
+
+    me.data('requestRunning', true);
+
     e.preventDefault()
     var $link = $(e.currentTarget)
     $.ajax({
-      url:
-        '/recipe/recipeVote/' +
-        $link.data('recipe') +
-        '/vote/' +
-        $link.data('direction'),
+      url: '/recipe/recipeVote/' + $link.data('recipe') + '/vote/' + $link.data('direction'),
       method: 'POST',
     }).then(function (response) {
-      $vote.find('.js-vote-total').text(response.vote)
+      $('.js-vote-arrows').find('.js-vote-total').text(response.vote);
+      me.data('requestRunning', false);
     })
+
   })
 
-  var $fav = $('.js-fav-arrows')
-  $fav.find('a').on('click', function (e) {
-    e.preventDefault()
+  $('.js-fav-arrows').find('a').on('click', function (e) {
+    var me = $(this);
+    e.preventDefault();
+    if (me.data('requestRunning')) {
+      return;
+    }
+
+    me.data('requestRunning', true);
+
     var $link = $(e.currentTarget)
     $.ajax({
       url: '/recipe/recipeFav/' + $link.data('recipe'),
@@ -30,6 +43,7 @@ $(document).ready(function () {
         $('#heart').removeClass('fa-heart')
         $('#heart').addClass('fa-heart-o')
       }
+      me.data('requestRunning', false);
     })
   })
 

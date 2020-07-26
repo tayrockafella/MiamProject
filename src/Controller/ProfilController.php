@@ -11,9 +11,14 @@ class ProfilController extends AbstractController
      * @Route("/profil", name="profil")
      */
     public function profil()
-    {
+    {  
+        $user = $this->getUser();
+        $recipes = [];
+        foreach( $user->getFavorites() as $fav){
+            array_push($recipes,$fav->getRecipe());
+        }
         return $this->render('profil/profil.html.twig', [
-            'controller_name' => 'ProfilController',
+            'recipes' => $recipes,
         ]);
     }
 }
