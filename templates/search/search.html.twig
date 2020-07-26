@@ -1,37 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recherche{% endblock %}
-
-{% block body %}
-   
-<h1 class="text-center" style="font-family: 'Grand Hotel', cursive;">Résultats de votre recherche</h1>
-
-{% if recipes == null %}
-       {% for message in app.flashes('erreur') %}
-            <div class="alert alert-warning text-center">
-                {{ message }}
-            </div>
-        {% endfor %}
-{% else %}
-{% for recipe in recipes %}
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                <img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
-                </div>
-                <div class="col-md-8">
-                <div class="card-body text-center">
-                    <h5 class="card-title"> <a href="{{ path('recipeView', { 'id': recipe.id  } ) }}" class="card-link text-center">{{ recipe.title }}</a></h5>
-                    <p>{{ recipe.information}}</p>
-                    <p> Recette ajoutée le: {{ recipe.date|date("m/d/Y") }}</p>
-                </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-{% endif %}
+{% block title %}Recherche
 {% endblock %}
 
+{% block body %}
 
+	<h1 class="text-center" style="font-family: 'Grand Hotel', cursive;">Résultats de votre recherche</h1>
 
-
+	{% if recipes == null %}
+		{% for message in app.flashes('erreur') %}
+			<div class="alert alert-warning text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% else %}
+		{% for recipe in recipes %}
+			<div class="card mb-3">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body text-center">
+							<h5 class="card-title">
+								<a href="{{ path('recipeView', { 'id': recipe.id } ) }}" class="card-link text-center">{{ recipe.title }}</a>
+							</h5>
+							<p>{{ recipe.information}}</p>
+							<p>
+								Recette ajoutée le:
+								{{ recipe.date|date("m/d/Y") }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+{% endblock %}

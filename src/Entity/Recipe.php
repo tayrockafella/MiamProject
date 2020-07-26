@@ -70,7 +70,7 @@ class Recipe
      */
     private $vote;
 
-    
+
 
     public function __construct()
     {
@@ -220,5 +220,4 @@ class Recipe
 
         return $this;
     }
-
 }

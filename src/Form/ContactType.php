@@ -16,11 +16,10 @@ class ContactType extends AbstractType
     {
         dump($options);
         $builder
-        ->add('nom', null , ['attr' => [ "placeholder" => $options["attr"]["user"]]]) 
-        ->add('email', EmailType::class, ['attr' => [ "placeholder" => $options["attr"]["mail"]]])
-        ->add('message', TextareaType::class)
-        ->add('envoyer', SubmitType::class)
-        ;
+            ->add('nom', null, ['attr' => ["placeholder" => $options["attr"]["user"]]])
+            ->add('email', EmailType::class, ['attr' => ["placeholder" => $options["attr"]["mail"]]])
+            ->add('message', TextareaType::class)
+            ->add('envoyer', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

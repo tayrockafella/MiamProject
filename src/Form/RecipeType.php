@@ -13,20 +13,19 @@ class RecipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',null,[
-                'label'=> 'Titre',
+            ->add('title', null, [
+                'label' => 'Titre',
             ])
-            ->add('information',null,[
-                'label'=> 'Informations de cuisson, puissance, nombre de personnes',
+            ->add('information', null, [
+                'label' => 'Informations de cuisson, puissance, nombre de personnes',
             ])
-            ->add('ingredient',null,[
-                'label'=> 'Ingrédients',
+            ->add('ingredient', null, [
+                'label' => 'Ingrédients',
             ])
-            ->add('content',null,[
-                'label'=> 'Recette',
+            ->add('content', null, [
+                'label' => 'Recette',
             ])
-            ->add('image',FileType::class)
-        ;
+            ->add('image', FileType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
