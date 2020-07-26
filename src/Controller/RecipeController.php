@@ -10,6 +10,7 @@ use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
+use ContainerOpUh7vw\getFavoritesRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,9 +56,21 @@ class RecipeController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         $cat = $recipe->getCategory();
+        $user = $this->getUser();
+        $isFav = false; 
+        if ($user != null) {
+            $favorites = $user->getFavorites();
+           
+            foreach ($favorites as $fav) {
+                if ($fav->getRecipe()->getId() == $recipe->getId()) {
+                    $isFav = true;
+                }
+            }
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->getUser();
+
             $comment->setUser($user);
             $comment->setDate(new \DateTime());
             $comment->setRecipes($recipe);
@@ -68,7 +81,8 @@ class RecipeController extends AbstractController
         return $this->render('miam/recipeView.html.twig', [
             'recipe' => $recipe,
             'cat' => $cat,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'isFav' => $isFav,
         ]);
     }
 
@@ -126,8 +140,7 @@ class RecipeController extends AbstractController
         $currentVote = $recipe->getVote();
         if ($direction == "up") {
             $currentVote++;
-        } 
-        else {
+        } else {
             $currentVote--;
         }
 
@@ -146,16 +159,16 @@ class RecipeController extends AbstractController
         $user = $this->getUser();  // récupère les infos de User
         $favorites = $user->getFavorites();
         foreach ($favorites as $fav) {
-            if ($recipe->getId() == $fav->getRecipeId()->getId()) {
-                
+            if ($recipe->getId() == $fav->getRecipe()->getId()) {
+
                 $em->remove($fav);
                 $em->flush();
                 return $this->json(["fav" => "TRUE"]);
             }
         }
         $favorite = new Favorites();
-        $favorite->setUserId($user); // insère id de l'user préalablement récupéré
-        $favorite->setRecipeId($recipe); // insère id de la recette préalablement récupéré
+        $favorite->setUser($user); // insère id de l'user préalablement récupéré
+        $favorite->setRecipe($recipe); // insère id de la recette préalablement récupéré
         $em->persist($favorite);
         $em->flush();
         return $this->json(["fav" => "FALSE"]);

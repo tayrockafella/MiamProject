@@ -19,8 +19,8 @@
 		<div class="card-body">
 			<p class="card-text">{{ recipe.content }}</p>
 			<small>
-					Recette ajoutée le:
-					{{ recipe.date|date("m/d/Y") }}</small>
+				Recette ajoutée le:
+				{{ recipe.date|date("m/d/Y") }}</small>
 		</div>
 		<div class="card-footer text-muted">
 			{% if app.user %}
@@ -28,9 +28,14 @@
 					<div class="row">
 						<div class="col">
 							<div class="fav-arrows flex-fill pt-2 js-fav-arrows">
-							<span>Ajouter à mes favoris</span>
+								<span>Ajouter à mes favoris</span>
 								<a class="fav-full" href="#" data-recipe="{{ recipe.id }}">
-									<i class="fa fa-heart-o" id="heart" aria-hidden="true"></i>
+									{% if  isFav  == true %}
+										<i class="fa fa-heart" id="heart" aria-hidden="true"></i>
+									{% else %}
+										<i class="fa fa-heart-o" id="heart" aria-hidden="true"></i>
+									{% endif %}
+
 								</a>
 							</div>
 						</div>
