@@ -87,51 +87,6 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    /**
-     * @IsGranted("ROLE_ADMIN")
-     * @Route("/addRecipe", name="addRecipe")
-     */
-    public function addRecipe(CategoryRepository $catRepo, Request $request, EntityManagerInterface $manager)
-    {
-        $cat = $catRepo->findAll();
-
-        $recipe = new Recipe();
-
-        $form = $this->createForm(RecipeType::class, $recipe);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $img = $form->get('image')->getData();
-            if ($img) {
-
-                $originalFilename = $img->getClientOriginalName();
-
-                try {
-                    $img->move(
-                        $this->getParameter('img_directory'),
-                        $originalFilename
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
-                $recipe->setImage($originalFilename);
-            }
-            $recipe->setDate(new \DateTime());
-            $recipe->setCategory($catRepo->findOneBy(['name' => $request->request->get('category')]));
-            $manager->persist($recipe);
-            $manager->flush();
-            return $this->redirectToRoute('recipeView', ['id' => $recipe->getId()]);
-        }
-
-
-        return $this->render('miam/addRecipe.html.twig', [
-            'formRecipe' => $form->createView(),
-            'cats' => $cat,
-        ]);
-    }
 
     /**
      * @Route("/recipeVote/{id}/vote/{direction}")

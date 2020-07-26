@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
+	<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;">
 		Vos Informations
 	</h1>
 	<form>
@@ -46,12 +46,15 @@
 		</div>
 	{% endfor %}
 	{% if is_granted("ROLE_ADMIN") %}
+		<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;">
+			Votre espace administrateur
+		</h1>
 		<a href="{{ path('admin_utilisateur') }}">
 			<button class="btn btn-warning">liste des utilisateurs</button>
 		</a>
 	{% endif %}
 	{% if is_granted("ROLE_ADMIN") %}
-		<a href="{{ path('addRecipe') }}">
+		<a href="{{ path('admin_addRecipe') }}">
 			<button class="btn btn-warning">Ajouter une recette</button>
 		</a>
 	{% endif %}
@@ -60,6 +63,4 @@
 			<button class="btn btn-warning">Editer une recette</button>
 		</a>
 	{% endif %}
-
-
 {% endblock %}

@@ -6,12 +6,16 @@
 
 {% block body %}
 	<h1>Modification de l'utilisateur</h1>
+	<div class="d-flex justify-content-end">
+		<a href="{{ path('admin_utilisateur') }}">
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
 	{{ form(editUserForm) }}
-		{% for flashMessage in app.session.flashbag.get('notice') %}
-
+		{% if flashMessage %}
 			<div class="alert alert-success">
 				{{ flashMessage }}
 			</div>
+		{% endif %}
 
-		{% endfor %}
 	{% endblock %}

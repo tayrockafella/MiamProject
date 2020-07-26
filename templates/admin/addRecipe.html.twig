@@ -7,7 +7,11 @@
 
 {% block body %}
 	<h1 class="text-center" style="font-family: 'Grand Hotel', cursive;">Ajouter une recette</h1>
-
+	<div class="d-flex justify-content-end">
+		<a href="/admin/recipeAdmin">
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
 	{{ form_start(formRecipe) }}
 	{{ form_row(formRecipe.title) }}
 	{{ form_row(formRecipe.information) }}
