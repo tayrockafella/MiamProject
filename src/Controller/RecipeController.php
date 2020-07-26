@@ -160,7 +160,7 @@ class RecipeController extends AbstractController
         $user = $this->getUser();  // récupère les infos de User
         $favorites = $user->getFavorites();
         foreach ($favorites as $fav) {
-            if ($recipe->getId() == $fav->getRecipeId()->getId()) {
+            if ($recipe->getId() == $fav->getRecipe()->getId()) {
 
                 $em->remove($fav);
                 $em->flush();
