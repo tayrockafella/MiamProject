@@ -27,6 +27,17 @@ class Comment
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="comments")
+     */
+    private $recipes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +63,31 @@ class Comment
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+
+    public function getRecipes(): ?Recipe
+    {
+        return $this->recipes;
+    }
+
+    public function setRecipes(?Recipe $recipes): self
+    {
+        $this->recipes = $recipes;
+
+        return $this;
+    }
+
+    public function getUser(): ?user
+    {
+        return $this->user;
+    }
+
+    public function setUser(?user $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

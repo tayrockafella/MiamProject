@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+    <h1> Vos Informations </h1>
+    <form>
+        <div class="form-group row">
+            <label for="staticUser" class="col-sm-3 col-form-label">Nom d'utilisateur:</label>
+            <div class="col-sm-5">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.username }}>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
+            <div class="col-sm-5">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.email }}>
+            </div>
+        </div>
+    </form>
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('admin_utilisateur') }}"><button class="btn btn-warning">Liste des utilisateurs</button></a>
+        {% endif %}
+        {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('addRecipe') }}"><button class="btn btn-warning">Ajouter une recette</button></a>
+        {% endif %}
+        {% if is_granted("ROLE_ADMIN") %}
+                <a href="{{ path('admin_recipeAdmin') }}"><button class="btn btn-warning">Editer une recette</button></a>
+        {% endif %}
+    
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+ <h1 class="text-center mb-3" style="font-family: 'Grand Hotel', cursive;">Connexion</h1>
+ <form action="{{ path ('login') }}" method="post">
+    <div class="form-group">
+        <input  placeholder="Adresse email" required name="_username" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <input  placeholder="Mot de passe" required name="_password" type="password" class="form-control">
+        <a class="nav-link" href={{ path('app_forgot_password_request') }}>mot de passe oublié ?</a>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Connexion</button>
+    </div>
+ </form>
+{% endblock %}

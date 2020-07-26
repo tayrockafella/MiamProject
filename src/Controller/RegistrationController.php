@@ -23,15 +23,30 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
+            $this->addFlash(
+                'notice',
+                'inscription réussie'
+            );
             $manager->persist($user);
             $manager->flush();
-            
             $user->eraseCredentials();
  
-           // return $this->redirectToRoute('connexion');
+           return $this->redirectToRoute('login');
         }
         return $this->render('registration/registration.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/login", name="login")
+     */
+    public function login(){
+        return $this->render('registration/login.html.twig');
+    }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout() {}
 }

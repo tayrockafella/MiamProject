@@ -32,6 +32,19 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
 
+    public function search($val) {
+       
+        return $this->createQueryBuilder('Recipe')
+        ->orWhere('Recipe.title LIKE :val')
+        ->orWhere('Recipe.ingredient LIKE :val')
+        ->orWhere('Recipe.information LIKE :val')
+        ->setParameter('val', '%'.$val.'%')
+        ->orderBy('Recipe.id', 'ASC')
+        ->getQuery()
+        ->execute();
+    
+    }
+
     // /**
     //  * @return Recipe[] Returns an array of Recipe objects
     //  */

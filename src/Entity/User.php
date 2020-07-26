@@ -3,11 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ * fields="email", 
+ * message="Cet email est déjà utilisé"
+ * 
+ * )
  */
 class User implements UserInterface
 {
@@ -20,6 +29,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180)
+     * @Assert\Email()
      */
     private $email;
 
@@ -30,7 +40,8 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="votre mot de passe doit faire minimum 8 caractères")
      */
     private $password;
 
@@ -38,8 +49,28 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $username;
-
+    
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="vos mots de passes sont différents")
+     */
     public $confirm_password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Favorites::class, mappedBy="user_id")
+     */
+    private $favorites;
+
+    
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,4 +156,69 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Favorites[]
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Favorites $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+            $favorite->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Favorites $favorite): self
+    {
+        if ($this->favorites->contains($favorite)) {
+            $this->favorites->removeElement($favorite);
+            // set the owning side to null (unless already changed)
+            if ($favorite->getUserId() === $this) {
+                $favorite->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
+   
 }
