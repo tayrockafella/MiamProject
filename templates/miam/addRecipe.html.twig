@@ -2,26 +2,27 @@
 {% form_theme formRecipe 'bootstrap_4_layout.html.twig' %}
 
 
-{% block title %}Ajouter une recette{% endblock %}
+{% block title %}Ajouter une recette
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center" style="font-family: 'Grand Hotel', cursive;">Ajouter une recette</h1>
+	<h1 class="text-center" style="font-family: 'Grand Hotel', cursive;">Ajouter une recette</h1>
 
-{{ form_start(formRecipe) }}
-    {{ form_row(formRecipe.title) }}
-    {{ form_row(formRecipe.information) }}
-    {{ form_row(formRecipe.ingredient) }}
-    {{ form_row(formRecipe.content) }}
-    <div class="form-group">
-        <label for="exampleSelect1">Sélectionnez une catégorie</label>
-        <select class="form-control" name="category" id="exampleSelect1">
-        {% for cat in cats %}
-            <option value={{ cat.name }}>{{ cat.name }}</option>
-        {% endfor %}
-        </select>
-    </div>
-    {{ form_row(formRecipe.image) }}
-    <button type="submit" class="btn btn-warning">Ajouter la recette</button>
-    {{form_end(formRecipe) }}
+	{{ form_start(formRecipe) }}
+	{{ form_row(formRecipe.title) }}
+	{{ form_row(formRecipe.information) }}
+	{{ form_row(formRecipe.ingredient) }}
+	{{ form_row(formRecipe.content) }}
+	<div class="form-group">
+		<label for="exampleSelect1">Sélectionnez une catégorie</label>
+		<select class="form-control" name="category" id="exampleSelect1">
+			{% for cat in cats %}
+				<option value={{ cat.name }}>{{ cat.name }}</option>
+			{% endfor %}
+		</select>
+	</div>
+	{{ form_row(formRecipe.image) }}
+	<button type="submit" class="btn btn-warning">Ajouter la recette</button>
+	{{form_end(formRecipe) }}
 
 {% endblock %}

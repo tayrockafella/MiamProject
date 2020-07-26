@@ -37,26 +37,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-    * @return User[] Returns an array of User objects
-    */
-    public function getCountAdmin(){ 
+     * @return User[] Returns an array of User objects
+     */
+    public function getCountAdmin()
+    {
 
         return count($this->createQueryBuilder('user')
             ->andWhere('user.roles LIKE :val')
             ->setParameter('val', "%ROLE_ADMIN%")
             ->getQuery()
             ->getResult());
-
     }
 
-    public function isAdmin(User $user){
+    public function isAdmin(User $user)
+    {
         return count($this->createQueryBuilder('user')
-        ->andWhere('user.roles LIKE :val')
-        ->setParameter('val', "%ROLE_ADMIN%")
-        ->andWhere('user.username = :username')
-        ->setParameter('username',$user->getUsername())
-        ->getQuery()
-        ->getResult());
+            ->andWhere('user.roles LIKE :val')
+            ->setParameter('val', "%ROLE_ADMIN%")
+            ->andWhere('user.username = :username')
+            ->setParameter('username', $user->getUsername())
+            ->getQuery()
+            ->getResult());
     }
 
     // /**

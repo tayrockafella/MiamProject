@@ -20,29 +20,28 @@ class RecipeRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Recipe[] Returns an array of Recipe objects
-    */
+     * @return Recipe[] Returns an array of Recipe objects
+     */
     public function findAllLimit()
     {
         return $this->createQueryBuilder('r')
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(4)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
-    public function search($val) {
-       
+    public function search($val)
+    {
+
         return $this->createQueryBuilder('Recipe')
-        ->orWhere('Recipe.title LIKE :val')
-        ->orWhere('Recipe.ingredient LIKE :val')
-        ->orWhere('Recipe.information LIKE :val')
-        ->setParameter('val', '%'.$val.'%')
-        ->orderBy('Recipe.id', 'ASC')
-        ->getQuery()
-        ->execute();
-    
+            ->orWhere('Recipe.title LIKE :val')
+            ->orWhere('Recipe.ingredient LIKE :val')
+            ->orWhere('Recipe.information LIKE :val')
+            ->setParameter('val', '%' . $val . '%')
+            ->orderBy('Recipe.id', 'ASC')
+            ->getQuery()
+            ->execute();
     }
 
     // /**

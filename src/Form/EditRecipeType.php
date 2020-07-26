@@ -21,8 +21,7 @@ class EditRecipeType extends AbstractType
             ->add('ingredient', TextType::class)
             ->add('content', TextareaType::class)
             ->add('image')
-            ->add('Valider', SubmitType::class)
-        ;
+            ->add('Valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
