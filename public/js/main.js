@@ -66,4 +66,25 @@ $(document).ready(function () {
       me.data('requestRunning', false);
     })
   })
+
+
+
+  $('.js-fav-arrows-profil').find('a').on('click', function (e) {
+    var me = $(this);
+    e.preventDefault();
+    if (me.data('requestRunning')) {
+      return;
+    }
+
+    me.data('requestRunning', true);
+
+    var $link = $(e.currentTarget)
+    $.ajax({
+      url: '/recipe/recipeFav/' + $link.data('recipe'),
+      method: 'POST',
+    }).then(function (reponse) {
+      document.getElementById("recipe-" + $link.data('recipe')).setAttribute("style", "block-size:0;visibility:hidden");
+      me.data('requestRunning', false);
+    })
+  })
 })

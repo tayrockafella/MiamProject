@@ -32,4 +32,13 @@ class MiamController extends AbstractController
             'title' => 'A propos',
         ]);
     }
+
+    /**
+     * @Route("/mentions_Legales", name="mentions_legales")
+     */
+    public function mentions()
+    {
+        return $this->render('miam/ml.html.twig', [
+        ]);
+    }
 }

@@ -6,4 +6,14 @@
 
 {% block body %}
 	<h1>Modification de la recette</h1>
-	{{ form(editRecipeForm) }}{% endblock %}
+	<div class="d-flex justify-content-end">
+	<a href="/admin/recipeAdmin"><button type="button" class="btn btn-primary">Retour</button></a>
+	</div>
+	{{ form(editRecipeForm) }}
+		{% if flashMessage %}
+			<button class="alert alert-warning">
+				{{ flashMessage }}
+			</button>
+		{% endif %}
+
+	{% endblock %}

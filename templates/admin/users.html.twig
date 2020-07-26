@@ -6,6 +6,11 @@
 
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
+	<div class="d-flex justify-content-end my-2">
+		<a href={{ path('profil') }}>
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
 	<table class="table">
 		<thead>
 			<th>ID</th>

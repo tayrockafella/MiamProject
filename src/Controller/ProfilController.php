@@ -17,6 +17,7 @@ class ProfilController extends AbstractController
         foreach ($user->getFavorites() as $fav) {
             array_push($recipes, $fav->getRecipe());
         }
+        dump($recipes);
         return $this->render('profil/profil.html.twig', [
             'recipes' => $recipes,
         ]);

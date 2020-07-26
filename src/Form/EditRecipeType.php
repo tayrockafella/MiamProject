@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Recipe;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,6 +23,7 @@ class EditRecipeType extends AbstractType
             ->add('content', TextareaType::class)
             ->add('image')
             ->add('Valider', SubmitType::class);
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

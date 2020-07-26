@@ -6,4 +6,16 @@
 
 {% block body %}
 	<h1>Modification de l'utilisateur</h1>
-	{{ form(editUserForm) }}{% endblock %}
+	<div class="d-flex justify-content-end">
+		<a href="{{ path('admin_utilisateur') }}">
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
+	{{ form(editUserForm) }}
+		{% if flashMessage %}
+			<div class="alert alert-success">
+				{{ flashMessage }}
+			</div>
+		{% endif %}
+
+	{% endblock %}

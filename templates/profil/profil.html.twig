@@ -4,34 +4,48 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
-		Vos Informations
-	</h1>
-	<form>
-		<div class="form-group row">
-			<label for="staticUser" class="col-sm-3 col-form-label">Nom d'utilisateur:</label>
-			<div class="col-sm-5">
-				<input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.username }}>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1 style="font-family: 'Grand Hotel', cursive;">
+					Vos Informations
+				</h1>
 			</div>
-		</div>
+			<div class="col-6">
+				<form>
+					<div class="form-group row">
+						<label for="staticUser" class="col-sm-3 col-form-label">Nom d'utilisateur:</label>
+						<div class="col-sm-5">
+							<input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.username }}>
+						</div>
+					</div>
 
-		<div class="form-group row">
-			<label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
-			<div class="col-sm-5">
-				<input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.email }}>
+					<div class="form-group row">
+						<label for="staticEmail" class="col-sm-3 col-form-label">Email:</label>
+						<div class="col-sm-5">
+							<input type="text" readonly class="form-control-plaintext" id="staticEmail" value={{ app.user.email }}>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-	</form>
-	<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;">
+	</div>
+	{% if recipes %}
+	<h1 style="font-family: 'Grand Hotel', cursive;">
 		Vos recettes favorites
 	</h1>
 	{% for recipe in recipes %}
-		<div class="card mb-3">
+		<div class="card mb-3 favorite_profile" id="recipe-{{ recipe.id }}">
 			<div class="row no-gutters">
 				<div class="col-md-4">
 					<img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
 				</div>
 				<div class="col-md-8">
+					<div class="fav-arrows flex-fill pt-2 js-fav-arrows-profil d-flex justify-content-end mr-2">
+						<a class="fav-full" href="#" data-recipe="{{ recipe.id }}">
+							<i class="fa fa-heart" id="heart" aria-hidden="true"></i>
+						</a>
+					</div>
 					<div class="card-body text-center">
 						<h5 class="card-title">
 							<a href="{{ path('recipeView', { 'id': recipe.id } ) }}" class="card-link text-center">{{ recipe.title }}</a>
@@ -45,21 +59,32 @@
 			</div>
 		</div>
 	{% endfor %}
+{% endif %}
 	{% if is_granted("ROLE_ADMIN") %}
-		<a href="{{ path('admin_utilisateur') }}">
-			<button class="btn btn-warning">liste des utilisateurs</button>
-		</a>
-	{% endif %}
-	{% if is_granted("ROLE_ADMIN") %}
-		<a href="{{ path('addRecipe') }}">
-			<button class="btn btn-warning">Ajouter une recette</button>
-		</a>
-	{% endif %}
-	{% if is_granted("ROLE_ADMIN") %}
-		<a href="{{ path('admin_recipeAdmin') }}">
-			<button class="btn btn-warning">Editer une recette</button>
-		</a>
+
+		<div class="container mt-5">
+			<div class="row">
+				<div class="col">
+					<h1 style="font-family: 'Grand Hotel', cursive;">
+						Votre espace administrateur
+					</h1>
+				</div>
+				<div class="col-6 d-flex justify-content-center">
+					<a class="mx-1" href="{{ path('admin_utilisateur') }}">
+						<button class="btn btn-warning">liste des utilisateurs</button>
+					</a>
+					<a class="mx-1" href="{{ path('admin_addRecipe') }}">
+						<button class="btn btn-warning">Ajouter une recette</button>
+					</a>
+					<a class="mx-1" href="{{ path('admin_recipeAdmin') }}">
+						<button class="btn btn-warning">Editer une recette</button>
+					</a>
+				</div>
+			</div>
+		</div>
 	{% endif %}
 
-
+	{% block javascripts %}
+			<script src="{{ asset('js/main.js') }}"></script>
+	{% endblock %}
 {% endblock %}
