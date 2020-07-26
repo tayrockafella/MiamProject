@@ -19,8 +19,8 @@
 		<div class="card-body">
 			<p class="card-text">{{ recipe.content }}</p>
 			<small>
-					Recette ajoutée le:
-					{{ recipe.date|date("m/d/Y") }}</small>
+				Recette ajoutée le:
+				{{ recipe.date|date("m/d/Y") }}</small>
 		</div>
 		<div class="card-footer text-muted">
 			{% if app.user %}
@@ -28,7 +28,7 @@
 					<div class="row">
 						<div class="col">
 							<div class="fav-arrows flex-fill pt-2 js-vote-arrowsjs-fav-arrows">
-							<span>Ajouter à mes favoris</span>
+								<span>Ajouter à mes favoris</span>
 								<a class="fav-full" href="#" data-recipe="{{ recipe.id }}">
 									<i class="fa fa-heart-o" id="heart" aria-hidden="true"></i>
 								</a>
@@ -51,11 +51,23 @@
 				{% endif %}
 				<hr>
 				{% for comment in recipe.comments %}
-					<p>{{ comment.user.username }},<small>
-							le
-							{{ comment.date|date("m/d/Y") }}</small>:
-						{{comment.content}}</p>
+
+					<div class="toast show comment" id="comment-{{ comment.id }}" data-comment="{{ comment.id }}" role="alert" aria-live="assertive" aria-atomic="true">
+						<div class="toast-header">
+							<strong class="mr-auto">{{ comment.user.username }}</strong>
+							<small>{{ comment.date|date("m/d/Y") }}</small>
+							{% if comment.user.username == app.user.username %}
+								<button type="button" data-comment="{{ comment.id }}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							{% endif %}
+						</div>
+						<div class="toast-body">
+							{{comment.content}}
+						</div>
+					</div>
 				{% endfor %}
+				<hr>
 				{% if app.user %}
 					{{ form_start(form)}}
 					{{ form_row(form.content, { 'label': 'Ajouter un commentaire' }) }}

@@ -32,4 +32,16 @@ $(document).ready(function () {
       }
     })
   })
+
+  $('.comment').find('button').on('click', function (e) {
+    e.preventDefault()
+    var $link = $(e.currentTarget)
+    $id = $link.data('comment')
+    $.ajax({
+      url: '/recipe/comment/remove/' + $link.data('comment'),
+      method: 'POST',
+    }).then(function (data) {
+      document.getElementById("comment-"+$id).setAttribute("style","block-size:0;visibility:hidden");
+    })
+  })
 })

@@ -8,8 +8,10 @@ use App\Entity\Comment;
 use App\Entity\Favorites;
 use App\Entity\User;
 use App\Form\CommentType;
+use App\Form\EditCommentType;
 use App\Form\RecipeType;
 use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -126,8 +128,7 @@ class RecipeController extends AbstractController
         $currentVote = $recipe->getVote();
         if ($direction == "up") {
             $currentVote++;
-        } 
-        else {
+        } else {
             $currentVote--;
         }
 
@@ -147,7 +148,7 @@ class RecipeController extends AbstractController
         $favorites = $user->getFavorites();
         foreach ($favorites as $fav) {
             if ($recipe->getId() == $fav->getRecipeId()->getId()) {
-                
+
                 $em->remove($fav);
                 $em->flush();
                 return $this->json(["fav" => "TRUE"]);
@@ -159,5 +160,15 @@ class RecipeController extends AbstractController
         $em->persist($favorite);
         $em->flush();
         return $this->json(["fav" => "FALSE"]);
+    }
+
+    /**
+     * @Route("/comment/remove/{id}", name="remove_comment")
+     */
+    public function remove(Comment $comment, EntityManagerInterface $entityManager)
+    {
+        $entityManager->remove($comment);
+        $entityManager->flush();
+        return $this->json(['rep'=> true]);
     }
 }
