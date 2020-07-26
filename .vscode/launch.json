@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/public/js/vote.js"
+            "program": "${workspaceFolder}/public/js/main.js"
         }
     ]
 }
