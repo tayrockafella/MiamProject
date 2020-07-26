@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+	<h1>Liste des utilisateurs</h1>
+	<div class="d-flex justify-content-end my-2">
+		<a href={{ path('profil') }}>
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
+	<table class="table">
+		<thead>
+			<th>ID</th>
+			<th>Email</th>
+			<th>Nom d'utilisateur</th>
+			<th>Rôle</th>
+			<th>commentaires</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.id }}</td>
+					<td>{{ user.email }}</td>
+					<td>{{ user.username }}</td>
+					<td>
+						{% for role in user.roles %}
+
+							{% if role == "ROLE_USER" %}
+								Utilisateur
+							{% elseif role == "ROLE_ADMIN" %}
+								Administrateur
+							{% endif %}
+
+						{% endfor %}
+					</td>
+					<td>{{ user.comments|length }}</td>
+					<td>
+						<a href="{{ path('admin_edit_user', {'id': user.id}) }}" class="btn btn-primary">Modifier</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="5">
+						Il n'y a pas d'utilisateur inscrit
+					</td>
+				</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+{% endblock %}

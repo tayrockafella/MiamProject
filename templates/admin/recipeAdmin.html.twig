@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste des recettes
+{% endblock %}
+
+{% block body %}
+	<h1>Liste des recettes</h1>
+	<div class="d-flex justify-content-end my-2">
+		<a href="{{ path('profil')}}">
+			<button type="button" class="btn btn-primary">Retour</button>
+		</a>
+	</div>
+	<table class="table text-center">
+		<thead>
+			<th>ID</th>
+			<th>Titre</th>
+			<th>Catégorie</th>
+			<th>Date de création</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			{% for recipe in recipes %}
+				<tr>
+					<td>{{ recipe.id }}</td>
+					<td>{{ recipe.title }}</td>
+					<td>{{ recipe.category.name}}</td>
+					<td>{{ recipe.date|date("m/d/Y") }}</td>
+					<td>
+						<a href="{{ path('admin_edit_recipe', {'id': recipe.id}) }}" class="btn btn-primary mr-1">Modifier</a>
+						<a href="{{ path('admin_remove_recipe', {'id': recipe.id}) }}" class="btn btn-primary" onclick="return confirm('voulez-vous supprimer cette recette ?')">supprimer</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

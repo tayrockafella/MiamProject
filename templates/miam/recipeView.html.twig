@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+	{{ cat.name }}
+{% endblock %}
+
+{% block body %}
+	<div class="card mb-3">
+		<h3 class="card-header" style="font-family: 'Grand Hotel', cursive;">{{ cat.name }}</h3>
+		<div class="card-body">
+			<h4 class="card-title text-center">{{ recipe.title}}</h4>
+			<h6 class="card-subtitle text-muted">{{ recipe.information }}</h6>
+			<hr>
+			<p class="card-text">Ingrédients:
+				{{ recipe.ingredient }}</p>
+		</div>
+		<img style="height: 100%; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
+		<div class="card-body">
+			<p class="card-text">{{ recipe.content }}</p>
+			<small>
+				Recette ajoutée le:
+				{{ recipe.date|date("m/d/Y") }}</small>
+		</div>
+		<div class="card-footer text-muted">
+			{% if app.user %}
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="fav-arrows flex-fill pt-2 js-fav-arrows">
+								<span>Ajouter à mes favoris</span>
+								<a class="fav-full" href="#" data-recipe="{{ recipe.id }}">
+									{% if  isFav  == true %}
+										<i class="fa fa-heart" id="heart" aria-hidden="true"></i>
+									{% else %}
+										<i class="fa fa-heart-o" id="heart" aria-hidden="true"></i>
+									{% endif %}
+
+								</a>
+							</div>
+						</div>
+						<div class="col text-right">
+							<div class="vote-arrows flex-fill pt-2 js-vote-arrows" style="min-width: 90px;">
+								<a class="vote-up" href="#" data-direction="up" data-recipe="{{ recipe.id }}">
+									<i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+								</a>
+								<a class="vote-down" href="#" data-direction="down" data-recipe="{{ recipe.id }}">
+									<i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+								</a>
+								<span>
+									<span class="js-vote-total">{{ recipe.vote }}</span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			<hr>
+			{% for comment in recipe.comments %}
+
+				<div class="toast show comment" id="comment-{{ comment.id }}" data-comment="{{ comment.id }}" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast-header">
+						<strong class="mr-auto">{{ comment.user.username }}</strong>
+						<small>{{ comment.date|date("m/d/Y") }}</small>
+						{% if app.user %}
+							{% if comment.user.username == app.user.username %}
+								<button type="button" data-comment="{{ comment.id }}" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							{% endif %}
+						{% endif %}
+					</div>
+					<div class="toast-body">
+						{{comment.content}}
+					</div>
+				</div>
+			{% endfor %}
+			<hr>
+			{% if app.user %}
+				{{ form_start(form)}}
+				{{ form_row(form.content, { 'label': 'Ajouter un commentaire' }) }}
+				<button class="btn btn-warning" type="submit">Commenter</button>
+				{{ form_end(form) }}
+			{% endif %}
+		</div>
+	</div>
+	{% block javascripts %}
+			<script src="{{ asset('js/main.js') }}"></script>
+	{% endblock %}
+{% endblock %}

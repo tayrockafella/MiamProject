@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mb-3" style="font-family: 'Grand Hotel', cursive;">
+		Nos
+		{{ title }}
+		par catégories</h1>
+	<div class="row">
+		<div class="card-deck">
+			{% for cat in cats %}
+				<div class="col-lg-6 d-flex align-items-stretch">
+					<div class="card border-warning mb-4">
+						<div class="card-header text-white bg-warning">
+							<h4 class="text-center">{{ cat.name }}</h4>
+						</div>
+						<div class="card-body">
+							<p class="card-text">{{ cat.description }}</p>
+							<img style="height: auto; width: 100%; display: block;" src={{ asset ('/img/'~cat.image)}} alt="Card image">
+						</div>
+						<div class="card-footer text-center">
+							<a href="{{ path('recipeList', { 'id': cat.id } ) }}" class="btn btn-primary">Voir nos
+								{{ cat.name }}</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
