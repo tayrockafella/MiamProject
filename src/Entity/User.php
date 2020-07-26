@@ -49,7 +49,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $username;
-    
+
     /**
      * @Assert\EqualTo(propertyPath="password", message="vos mots de passes sont différents")
      */
@@ -65,7 +65,7 @@ class User implements UserInterface
      */
     private $favorites;
 
-    
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -147,7 +147,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-         $this->confirm_password  = null;
+        $this->confirm_password  = null;
     }
 
     public function setUsername(string $username): self
@@ -218,7 +218,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-   
-   
 }

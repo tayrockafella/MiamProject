@@ -17,7 +17,7 @@ class EditUserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'constraints' =>[
+                'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir une adresse email'
                     ])
@@ -26,19 +26,18 @@ class EditUserType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
-                
+
             ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER', 
+                    'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN'
-                ], 
-                'expanded' => true, 
+                ],
+                'expanded' => true,
                 'multiple' => true,
                 'label' => 'Rôles'
             ])
-            ->add('Valider', SubmitType::class)
-        ;
+            ->add('Valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

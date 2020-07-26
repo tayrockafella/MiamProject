@@ -15,13 +15,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/registration", name="registration")
      */
-    public function registration(Request $request,EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
-        $form = $this->createForm(RegistrationType::class,$user);
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $hash = $encoder->encodePassword($user,$user->getPassword());
+            $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
             $this->addFlash(
                 'notice',
@@ -30,8 +30,8 @@ class RegistrationController extends AbstractController
             $manager->persist($user);
             $manager->flush();
             $user->eraseCredentials();
- 
-           return $this->redirectToRoute('login');
+
+            return $this->redirectToRoute('login');
         }
         return $this->render('registration/registration.html.twig', [
             'form' => $form->createView(),
@@ -41,12 +41,15 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/login", name="login")
      */
-    public function login(){
+    public function login()
+    {
         return $this->render('registration/login.html.twig');
     }
 
     /**
      * @Route("/logout", name="logout")
      */
-    public function logout() {}
+    public function logout()
+    {
+    }
 }

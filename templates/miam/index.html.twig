@@ -1,33 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue{% endblock %}
+{% block title %}Bienvenue
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;"> Bienvenue </h1>
-{% if  not app.user %}
-<div class="mx-auto">
-    <p class="text-center">Cuisiner au micro-ondes vous paraît étrange ? détrompez-vous et laissez-vous surprendre!<p>
-    <img class="img-fluid"style="height: auto; width: auto; display: block;" src={{ asset ('/img/microwave.png')}} alt="Card image">
-</div>
-{% else %}
-<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;"> Nos dernières recettes ajoutées</h1>
-    <div class="row">
-        <div class="card-deck">
-            {% for recipe in recipes %}
-                <div class="col-lg-6 d-flex align-items-stretch">
-                    <div class="card border-warning mb-4">
-                        <div class="card-header text-white bg-warning"><h4 class="text-center">{{ recipe.title }}</h4></div>
-                        <div class="card-body">
-                            <p class="card-text">{{ recipe.information }}</p>
-                            <img style="height: auto; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
-                        </div>
-                        <div class="card-footer text-center">
-                            <a href="{{ path('recipeView', {'id': recipe.id }) }}" class="btn btn-primary">{{ recipe.title }}</a>
-                        </div>
-                    </div> 
-                </div>      
-            {% endfor %}
-        </div>
-    </div>
-{% endif %}
+	<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;">
+		Bienvenue
+	</h1>
+	{% if  not app.user %}
+		<div class="mx-auto">
+			<p class="text-center">Cuisiner au micro-ondes vous paraît étrange ? détrompez-vous et laissez-vous surprendre!</p>
+			<p>
+				<img class="img-fluid" style="height: auto; width: auto; display: block;" src={{ asset ('/img/microwave.png')}} alt="Card image">
+			</p>
+		</div>
+	{% else %}
+		<h1 class="text-center mb-4" style="font-family: 'Grand Hotel', cursive;">
+			Nos dernières recettes ajoutées</h1>
+		<div class="row">
+			<div class="card-deck">
+				{% for recipe in recipes %}
+					<div class="col-lg-6 d-flex align-items-stretch">
+						<div class="card border-warning mb-4">
+							<div class="card-header text-white bg-warning">
+								<h4 class="text-center">{{ recipe.title }}</h4>
+							</div>
+							<div class="card-body">
+								<p class="card-text">{{ recipe.information }}</p>
+								<img style="height: auto; width: 100%; display: block;" src={{ asset ('/img/'~recipe.image)}} alt="Card image">
+							</div>
+							<div class="card-footer text-center">
+								<a href="{{ path('recipeView', {'id': recipe.id }) }}" class="btn btn-primary">{{ recipe.title }}</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	{% endif %}
 {% endblock %}

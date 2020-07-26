@@ -13,15 +13,15 @@ class MiamController extends AbstractController
     /**
      * @Route("/", name="miam")
      */
-    public function index(RecipeRepository $repo) 
-    {   
+    public function index(RecipeRepository $repo)
+    {
         $recipe = $repo->findAllLimit();
         return $this->render('miam/index.html.twig', [
-            'title'=> 'Miam !',
+            'title' => 'Miam !',
             'recipes' => $recipe,
         ]);
     }
-    
+
     /**
      * @Route("/about", name="about")
      */
@@ -29,14 +29,7 @@ class MiamController extends AbstractController
     {
         return $this->render('miam/about.html.twig', [
             'controller_name' => 'AboutController',
-            'title'=> 'A propos',
+            'title' => 'A propos',
         ]);
     }
-
-   
-    
-
 }
-    
-
- 

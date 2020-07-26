@@ -58,10 +58,10 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         $cat = $recipe->getCategory();
         $user = $this->getUser();
-        $isFav = false; 
+        $isFav = false;
         if ($user != null) {
             $favorites = $user->getFavorites();
-           
+
             foreach ($favorites as $fav) {
                 if ($fav->getRecipe()->getId() == $recipe->getId()) {
                     $isFav = true;
@@ -182,6 +182,6 @@ class RecipeController extends AbstractController
     {
         $entityManager->remove($comment);
         $entityManager->flush();
-        return $this->json(['rep'=> true]);
+        return $this->json(['rep' => true]);
     }
 }

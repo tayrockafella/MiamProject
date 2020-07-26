@@ -27,11 +27,11 @@ class AdminController extends AbstractController
      * 
      * @Route("/", name="utilisateur")
      */
-    public function index(UserRepository $users){
+    public function index(UserRepository $users)
+    {
         return $this->render("admin/users.html.twig", [
             'users' => $users->findAll()
         ]);
-
     }
 
     /**
@@ -39,7 +39,8 @@ class AdminController extends AbstractController
      * 
      * @Route("/utilisateur/modifier/{id}", name="edit_user")
      */
-    public function editUser(User $user, Request $request, UserRepository $repo){
+    public function editUser(User $user, Request $request, UserRepository $repo)
+    {
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
@@ -62,7 +63,6 @@ class AdminController extends AbstractController
         return $this->render('admin/editUser.html.twig', [
             'editUserForm' => $form->createView()
         ]);
-
     }
 
     /**
@@ -70,11 +70,11 @@ class AdminController extends AbstractController
      * 
      * @Route("/recipeAdmin", name="recipeAdmin")
      */
-    public function recipeAdmin(RecipeRepository $repo){
+    public function recipeAdmin(RecipeRepository $repo)
+    {
         return $this->render("admin/recipeAdmin.html.twig", [
             'recipes' => $repo->findAll()
         ]);
-
     }
 
     /**
@@ -82,11 +82,12 @@ class AdminController extends AbstractController
      * 
      * @Route("/recipeAdmin/edit/{id}", name="edit_recipe")
      */
-    public function editRecipe(Recipe $recipe, Request $request, RecipeRepository $repo){
+    public function editRecipe(Recipe $recipe, Request $request, RecipeRepository $repo)
+    {
         $form = $this->createForm(EditRecipeType::class, $recipe);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recipe);
@@ -98,19 +99,17 @@ class AdminController extends AbstractController
         return $this->render('admin/editRecipe.html.twig', [
             'editRecipeForm' => $form->createView()
         ]);
-
     }
 
-   /**
-    * @Route("/recipeAdmin/remove/{id}", name="remove_recipe")
-    */
-    public function remove(Recipe $recipe, EntityManagerInterface $entityManager){
-   
-    $entityManager->remove($recipe);
-    $entityManager->flush();
+    /**
+     * @Route("/recipeAdmin/remove/{id}", name="remove_recipe")
+     */
+    public function remove(Recipe $recipe, EntityManagerInterface $entityManager)
+    {
 
-    return $this->redirectToRoute('admin_recipeAdmin');
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_recipeAdmin');
     }
-
-    
 }

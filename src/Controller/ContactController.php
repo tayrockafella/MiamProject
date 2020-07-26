@@ -12,9 +12,9 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function mail( Request $request, \Swift_Mailer $mailer)
+    public function mail(Request $request, \Swift_Mailer $mailer)
     {
-        $form = $this->createForm(ContactType::class,null, ["attr" => ["user" => $this->getUser()->getUsername(),"mail" => $this->getUser()->getEmail()]]);
+        $form = $this->createForm(ContactType::class, null, ["attr" => ["user" => $this->getUser()->getUsername(), "mail" => $this->getUser()->getEmail()]]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -29,17 +29,17 @@ class ContactController extends AbstractController
                 // On crée le texte avec la vue
                 ->setBody(
                     $this->renderView(
-                        'contact/contact.html.twig', compact('contact')
+                        'contact/contact.html.twig',
+                        compact('contact')
                     ),
                     'text/html'
-                )
-            ;
+                );
             $mailer->send($message);
 
             $this->addFlash('message', 'Votre message a été transmis, nous vous répondrons dans les meilleurs délais.'); // Permet un message flash de renvoi
         }
 
-        return $this->render('contact/index.html.twig',[
+        return $this->render('contact/index.html.twig', [
             'form' => $form->createView()
         ]);
     }

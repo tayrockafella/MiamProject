@@ -20,7 +20,7 @@ class SearchController extends AbstractController
         $recipes = $repo->search($title);
 
         if ($recipes == null) {
-            $this->addFlash('erreur', 'Oups! nous sommes désolés, aucune recette n\'a été trouvée à ce nom: '.$title);
+            $this->addFlash('erreur', 'Oups! nous sommes désolés, aucune recette n\'a été trouvée à ce nom: ' . $title);
         }
 
         return $this->render('search/search.html.twig', [

@@ -1,16 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center mb-3" style="font-family: 'Grand Hotel', cursive;"> Inscription</h1>
-{{ form_start(form) }}
-    {{ form_row(form.username, {'label' : 'Nom d\'utilisateur','attr': {'placeholder': 'Entrez un nom d\'utilisateur'}}) }}
-    {{ form_row(form.email, {'label' : 'Email', 'attr': {'placeholder': 'Entrez votre adresse email'}}) }}
-    {{ form_row(form.password, {'label' : 'Mot de passe', 'attr': {'placeholder': 'mot de passe: minimum 8 caractères'}}) }}
-    {{ form_row(form.confirm_password, {'label' : 'Mot de passe', 'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}
-    <p class="text-center"><button class="btn btn-primary" type="submit">S'inscrire!</button></p>
-{{ form_end(form) }}
+	<h1 class="text-center mb-3" style="font-family: 'Grand Hotel', cursive;">
+		Inscription</h1>
+	{{ form_start(form) }}
+	{{ form_row(form.username, {'label' : 'Nom d\'utilisateur','attr': {'placeholder': 'Entrez un nom d\'utilisateur'}}) }}
+	{{ form_row(form.email, {'label' : 'Email', 'attr': {'placeholder': 'Entrez votre adresse email'}}) }}
+	{{ form_row(form.password, {'label' : 'Mot de passe', 'attr': {'placeholder': 'mot de passe: minimum 8 caractères'}}) }}
+	{{ form_row(form.confirm_password, {'label' : 'Mot de passe', 'attr': {'placeholder': 'Confirmez votre mot de passe'}}) }}
+	<p class="text-center">
+		<button class="btn btn-primary" type="submit">S'inscrire!</button>
+	</p>
+	{{ form_end(form) }}
 
 
 {% endblock %}

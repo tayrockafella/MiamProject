@@ -1,11 +1,13 @@
 <h1 class="text-center mb-3" style="font-family: 'Grand Hotel', cursive;">Bonjour!</h1>
 
 <p>
-    Pour réinitialiser votre mot de passe, 
-    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">cliquez ici</a>
-    Ce lien expire dans {{ tokenLifetime|date('g') }} heure(s)..
+	Pour réinitialiser votre mot de passe,
+	<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">cliquez ici</a>
+	Ce lien expire dans
+	{{ tokenLifetime|date('g') }}
+	heure(s)..
 </p>
 
 <p>
-    Au revoir!
+	Au revoir!
 </p>
