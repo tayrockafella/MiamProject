@@ -48,7 +48,14 @@ $(document).ready(function () {
   })
 
   $('.comment').find('button').on('click', function (e) {
-    e.preventDefault()
+   
+    var me = $(this);
+    e.preventDefault();
+    if (me.data('requestRunning')) {
+      return;
+    }
+
+    me.data('requestRunning', true);
     var $link = $(e.currentTarget)
     $id = $link.data('comment')
     $.ajax({
@@ -56,6 +63,7 @@ $(document).ready(function () {
       method: 'POST',
     }).then(function (data) {
       document.getElementById("comment-"+$id).setAttribute("style","block-size:0;visibility:hidden");
+      me.data('requestRunning', false);
     })
   })
 })
