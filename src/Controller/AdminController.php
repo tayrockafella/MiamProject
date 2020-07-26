@@ -101,9 +101,8 @@ class AdminController extends AbstractController
    /**
     * @Route("/recipeAdmin/remove/{id}", name="remove_recipe")
     */
-    public function remove($id, EntityManagerInterface $entityManager){
-    $entityManager = $this->getDoctrine()->getManager();
-    $recipe = $entityManager->getRepository(Recipe::class)->find($id);
+    public function remove(Recipe $recipe, EntityManagerInterface $entityManager){
+   
     $entityManager->remove($recipe);
     $entityManager->flush();
 
