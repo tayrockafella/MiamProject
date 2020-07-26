@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Modification de l'utilisateur{% endblock %}
+{% block title %}
+	Modification de l'utilisateur
+{% endblock %}
 
 {% block body %}
-    <h1>Modification de l'utilisateur</h1>
-    {{ form(editUserForm) }}
+	<h1>Modification de l'utilisateur</h1>
+	{{ form(editUserForm) }}
+		{% for flashMessage in app.session.flashbag.get('notice') %}
 
-{% endblock %}
+			<div class="alert alert-success">
+				{{ flashMessage }}
+			</div>
+
+		{% endfor %}
+	{% endblock %}

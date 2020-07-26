@@ -45,13 +45,16 @@ class AdminController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             if($repo->getCountAdmin()==1 && $repo->isAdmin($user)){
-                $this->addFlash('message', 'Uilisateur modifié');
+                $this->addFlash('error', 'Il doit avoir au minimum un administrateur');
             }
             else{
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash('message', 'Uilisateur modifié');
+                $this->get('session')->getFlashBag()->add(
+                    'notice',
+                    'Statut de l\'utilisateur modifié'
+                );
                 return $this->redirectToRoute("admin_utilisateur");
             }
         }
